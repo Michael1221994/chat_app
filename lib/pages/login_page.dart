@@ -7,7 +7,14 @@ class LoginPage extends StatefulWidget {
   final TextEditingController _emailController= TextEditingController();
   final TextEditingController _passwordController= TextEditingController();
 
-   LoginPage({super.key});
+  //tap to go to register page
+  final void Function()? onTap;
+
+   LoginPage({super.key, required this.onTap});
+
+   void login(){
+    
+   }
 
   @override
   State<LoginPage> createState() => _LoginPageState();
@@ -46,10 +53,24 @@ class _LoginPageState extends State<LoginPage> {
                const SizedBox(height: 10,),
 
               //login Button
-              Mybutton()
+              Mybutton(text: "Login", onTap: widget.login,),
+
+              const SizedBox(height: 20,),
+
+              //not a member? register now
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text("Not a member? ", style: TextStyle(color: Theme.of(context).colorScheme.primary),),
+                  GestureDetector(
+                    onTap: widget.onTap,
+                    child: Text("Register now ", style: TextStyle(fontWeight: FontWeight.bold, color: Theme.of(context).colorScheme.primary),))
+                ],
+              )
           ],
         ),
       ),
     );
   }
+
 }
