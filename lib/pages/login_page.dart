@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:minimal_chat_app/Services/Auth/auth_service.dart';
 import 'package:minimal_chat_app/components/my_button.dart';
 import 'package:minimal_chat_app/components/my_textfield.dart';
 
@@ -12,7 +13,16 @@ class LoginPage extends StatefulWidget {
 
    LoginPage({super.key, required this.onTap});
 
-   void login(){
+   void login(BuildContext context) async{
+    //auth service
+    final AuthService authService= AuthService();
+
+    //try login
+    try{
+      await authService.signinwithEmailandPassword(_emailController.text, _passwordController.text);
+    }catch(e){
+      showDialog(context: context, builder: (context) => AlertDialog(title: Text(e.toString()),));
+    }
     
    }
 
@@ -53,7 +63,7 @@ class _LoginPageState extends State<LoginPage> {
                const SizedBox(height: 10,),
 
               //login Button
-              Mybutton(text: "Login", onTap: widget.login,),
+              Mybutton(text: "Login", onTap: () => widget.login(context),),
 
               const SizedBox(height: 20,),
 

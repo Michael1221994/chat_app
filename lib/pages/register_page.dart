@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:minimal_chat_app/Services/Auth/auth_service.dart';
 import 'package:minimal_chat_app/components/my_textfield.dart';
 
 import '../components/my_button.dart';
@@ -10,7 +11,22 @@ class RegisterPage extends StatefulWidget {
    final void Function()? onTap;
    RegisterPage({super.key, required this.onTap});
 
-   void register (){}
+   void register (BuildContext context) async{
+    final AuthService authService = AuthService();
+
+    //if passwords match create a user
+    if(_passwordController.text == _confirmpasswordController.text){
+      try {
+      await authService.signupwithEmailandPassword(_emailController.text, _passwordController.text);
+      } catch(e){
+        showDialog(context: context, builder: (context) => AlertDialog(title: Text(e.toString()),));
+      }
+    }
+    //passwords  don't match 
+    else{
+      showDialog(context: context, builder: (context) => AlertDialog(title: Text("Passwords do not match"),));
+    }
+   }
 
   @override
   State<RegisterPage> createState() => _RegisterPageState();
@@ -54,7 +70,7 @@ class _RegisterPageState extends State<RegisterPage> {
                const SizedBox(height: 10,),
 
               //login Button
-              Mybutton(text: "Register", onTap: widget.register,),
+              Mybutton(text: "Register", onTap: () => widget.register(context),),
 
               const SizedBox(height: 20,),
 
