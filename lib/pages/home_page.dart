@@ -57,7 +57,8 @@ final AuthService authService = AuthService();
 
   Widget _buildUserListItem(Map<String, dynamic> userData, BuildContext context) {
     //display all users except current user
-    return UserTile(
+    if(userData["email"] != authService.getCurrentUser()!.email){
+      return UserTile(
       text: userData["email"],
       onTap: (){
         //tapped on a user -> go to chat page
@@ -65,6 +66,10 @@ final AuthService authService = AuthService();
       },
     );
 
+    }
+    else{
+      return Container();
+    }
 
   }
 }
