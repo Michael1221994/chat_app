@@ -22,7 +22,8 @@ class UserTile extends StatelessWidget {
         padding: EdgeInsets.all(20),
         child: Row(
           children: [
-            Icon(Icons.person),
+            const Icon(Icons.person),
+            
             const SizedBox(width: 20,),
             //username
             Text(text),

@@ -16,9 +16,16 @@ final AuthService authService = AuthService();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Theme.of(context).colorScheme.surface,
       appBar: AppBar(
-        title: const Text("Home"),
-        
+        title: const Padding(
+          padding:  EdgeInsets.only(left: 100.0),
+          child:  Text("Home"),
+        ),
+        backgroundColor: Colors.transparent,
+        foregroundColor: Colors.grey,
+        elevation: 0,
+
       ),
       drawer: const MyDrawer(),
       body: builduserList(),
@@ -62,7 +69,7 @@ final AuthService authService = AuthService();
       text: userData["email"],
       onTap: (){
         //tapped on a user -> go to chat page
-        Navigator.push(context, MaterialPageRoute(builder: (context) => ChatPage(recieverEmail: userData["email"],),));
+        Navigator.push(context, MaterialPageRoute(builder: (context) => ChatPage(recieverEmail: userData["email"], receiverID: userData["uid"],),));
       },
     );
 
